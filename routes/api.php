@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\Car\CarController;
+use App\Http\Controllers\Api\Car\CarTypeController;
+use App\Http\Controllers\Api\SparePart\SparePartController;
+use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('/users', UserController::class);
+
+Route::apiResource('/car-types', CarTypeController::class);
+
+Route::apiResource('/spare-parts', SparePartController::class);
+
+Route::apiResource('/cars', CarController::class);

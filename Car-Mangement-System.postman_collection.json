@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "97dbe4e8-3fb2-4afc-b862-527ca47a5e67",
+		"name": "Car-Mangement-System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25467111"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"mina\",\r\n    \"phone\":\"012290872283\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{siteUrl}}/users",
+							"host": [
+								"{{siteUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{siteUrl}}/users",
+							"host": [
+								"{{siteUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{siteUrl}}/users/1",
+							"host": [
+								"{{siteUrl}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"zakis\",\r\n    \"phone\":\"123451\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{siteUrl}}/users/1",
+							"host": [
+								"{{siteUrl}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{siteUrl}}/users/1",
+							"host": [
+								"{{siteUrl}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Car",
+			"item": [
+				{
+					"name": "Car Type",
+					"item": [
+						{
+							"name": "Create Car Type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"test type\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{siteUrl}}/car-types",
+									"host": [
+										"{{siteUrl}}"
+									],
+									"path": [
+										"car-types"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Car Types",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{siteUrl}}/car-types",
+									"host": [
+										"{{siteUrl}}"
+									],
+									"path": [
+										"car-types"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Single Car Type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{siteUrl}}/car-types/1",
+									"host": [
+										"{{siteUrl}}"
+									],
+									"path": [
+										"car-types",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Car Type",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"test type 2 \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{siteUrl}}/car-types/1",
+									"host": [
+										"{{siteUrl}}"
+									],
+									"path": [
+										"car-types",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Car Type",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{siteUrl}}/car-types/1",
+									"host": [
+										"{{siteUrl}}"
+									],
+									"path": [
+										"car-types",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cars",
+					"item": [
+						{
+							"name": "Create Car",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"make\": \"test Make\",\r\n    \"model\": \"test model\",\r\n    \"user_id\": 1,\r\n    \"car_type_id\": 2,\r\n    \"plate_number\": \"12s\",\r\n    \"chase_number\": \"12sd\",\r\n    \"motor_number\": \"asd\",\r\n    \"entry_date\": \"2023-12-10\",\r\n    \"exit_date\": \"2023-12-11\",\r\n    \"color\": \"red\" //Optional\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{siteUrl}}/cars",
+									"host": [
+										"{{siteUrl}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Cars",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{siteUrl}}/cars",
+									"host": [
+										"{{siteUrl}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Single Car",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{siteUrl}}/cars/1",
+									"host": [
+										"{{siteUrl}}"
+									],
+									"path": [
+										"cars",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Car",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"make\": \"test Mak1e\",\r\n    \"model\": \"test mod1el\",\r\n    \"user_id\": 2,\r\n    \"car_type_id\": 1,\r\n    \"plate_number\": \"112s\",\r\n    \"chase_number\": \"121sd\",\r\n    \"motor_number\": \"as1d\",\r\n    \"entry_date\": \"2023-12-10\",\r\n    \"exit_date\": \"2023-12-11\",\r\n    \"color\": \"red\" //Optional\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{siteUrl}}/cars/1",
+									"host": [
+										"{{siteUrl}}"
+									],
+									"path": [
+										"cars",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Car",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{siteUrl}}/cars/1",
+									"host": [
+										"{{siteUrl}}"
+									],
+									"path": [
+										"cars",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Spare Part",
+			"item": [
+				{
+					"name": "Create Spare Part",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Spare Part 1\",\r\n    \"car_type_id\": 1,\r\n    \"code\": \"test code\",\r\n    \"price\": 200,\r\n    \"notes\": \"test note\", //Optional\r\n    \"stock\": 3 //Optional (Default 0)\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{siteUrl}}/spare-parts",
+							"host": [
+								"{{siteUrl}}"
+							],
+							"path": [
+								"spare-parts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Spare Parts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{siteUrl}}/spare-parts",
+							"host": [
+								"{{siteUrl}}"
+							],
+							"path": [
+								"spare-parts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Spare Part",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{siteUrl}}/spare-parts/4",
+							"host": [
+								"{{siteUrl}}"
+							],
+							"path": [
+								"spare-parts",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Spare Part",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Spare Part 122\",\r\n    \"car_type_id\": 2,\r\n    \"code\": \"test code2\",\r\n    \"price\": 2020,\r\n    \"notes\": \"test not2e\", //Optional\r\n    \"stock\": 23 //Optional (Default 0)\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{siteUrl}}/spare-parts/4",
+							"host": [
+								"{{siteUrl}}"
+							],
+							"path": [
+								"spare-parts",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Spare Part",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{siteUrl}}/spare-parts/4",
+							"host": [
+								"{{siteUrl}}"
+							],
+							"path": [
+								"spare-parts",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "siteUrl",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		}
+	]
+}
