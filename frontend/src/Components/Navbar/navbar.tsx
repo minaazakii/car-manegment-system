@@ -1,4 +1,4 @@
-import { FaHome } from "react-icons/fa";
+import { FaCarSide, FaHome } from "react-icons/fa";
 import { navbarLinksType, navbarPropsType } from "../Types/types";
 import { TfiSettings } from "react-icons/tfi";
 import { TbReportMoney } from "react-icons/tb";
@@ -16,10 +16,11 @@ const Navbar = ({collapse}:navbarPropsType) => {
     const links:navbarLinksType = [
         {id:1,name:'home',nameAr:'الرئيسية',icon:<FaHome />,path:'/dashboard/home'},
         {id:2,name:'bills',nameAr:'فواتير',icon:<TbReportMoney />,path:'/dashboard/bills'},
-        {id:2,name:'reports',nameAr:'تقارير',icon:<RiBillLine />,path:'/dashboard/reports'},
-        {id:3,name:'spare parts',nameAr:'قطع الغيار',icon:<TfiSettings />,path:'/dashboard/spareparts'},
-        {id:3,name:'clients',nameAr:'العملاء',icon:<PiUsersThree />,path:'/dashboard/clients'},
-        {id:4,name:'accounts',nameAr:'الحسابات',icon:<MdAccountBalance />,path:'/dashboard/accounts'},
+        {id:3,name:'reports',nameAr:'تقارير',icon:<RiBillLine />,path:'/dashboard/reports'},
+        {id:4,name:'spare parts',nameAr:'قطع الغيار',icon:<TfiSettings />,path:'/dashboard/spareparts'},
+        {id:5,name:'clients',nameAr:'العملاء',icon:<PiUsersThree />,path:'/dashboard/clients'},
+        {id:6,name:'cars',nameAr:'السيارات',icon:<FaCarSide /> ,path:'/dashboard/cars'},
+        {id:7,name:'accounts',nameAr:'الحسابات',icon:<MdAccountBalance />,path:'/dashboard/accounts'},
     ]
     return ( 
         <article className="navbar-wrapper mt-10 relative">

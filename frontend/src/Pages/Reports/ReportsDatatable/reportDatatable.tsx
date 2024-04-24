@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DataTable, { TableColumn, TableStyles } from "react-data-table-component";
-import { BillFormData, billTableData } from "../../../Components/Types/types";
+import { billTableData } from "../../../Components/Types/types";
 import {useRemoteSort} from '../../../Components/Common/SortHook/sortHook'
 import { FaEye, FaSortAmountUp } from "react-icons/fa";
 import { getBills } from "../../../Components/Redux/Slices/Bills/bills";
@@ -45,7 +45,7 @@ const ActionCell = ({data}:{data:billTableData})=>{
                 className='shadow-md p-0'
             >
                 <div className='[&>li]:mb-2 [&>li>svg]:mr-2 [&>li>svg]:text-xl rounded-md overflow-hidden capitalize'>
-                    <MenuItem className='text-[#545151c2] hover:bg-[#442b7e42]'><Link to='viewbill' state={{data:data,type:'view'}} className='w-full flex items-center gap-x-3'> عرض الفاتورة <FaEye className='text-xl' /></Link></MenuItem>
+                    <MenuItem className='text-[#545151c2] hover:bg-[#442b7e42]'><Link to='viewreport' state={{data:data,type:'view'}} className='w-full flex items-center gap-x-3'> عرض الفاتورة <FaEye className='text-xl' /></Link></MenuItem>
                 </div>
             </Menu>
 
@@ -53,7 +53,7 @@ const ActionCell = ({data}:{data:billTableData})=>{
         </div>
     );
 }
-const BillsDatatable = () => {
+const ReportsDatatable = () => {
     const navigate = useNavigate()
     const [page,setpage] = useState<number>(1)
     const [size,setsize] = useState<number>(10)
@@ -107,6 +107,15 @@ const BillsDatatable = () => {
 
     const data:billTableData[] = [
         {id:1,name:'جورج استيفن عبد المسيح',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
+        {id:2,name:'مايكل مرقص ناشد',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
+        {id:3,name:'ali ali el sayed mohamed',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
+        {id:4,name:'yasmine el sayed arfat',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
+        {id:5,name:'mona mark',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
+        {id:6,name:'mina ashraf zaki',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
+        {id:7,name:'andrew ashrf',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
+        {id:8,name:'andrew ashrf',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
+        {id:9,name:'andrew ashrf',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
+        {id:10,name:'andrew ashrf',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
     ]
 
     const columns:TableColumn<billTableData>[] = [
@@ -183,7 +192,7 @@ const BillsDatatable = () => {
                 onChangeRowsPerPage={handleRowChange}
                 customStyles={customStyles}
                 highlightOnHover
-                onRowClicked={(data)=>navigate('viewbill',{state:{data:data,type:'view'}})}
+                onRowClicked={(data)=>navigate('viewreport',{state:{data:data,type:'view'}})}
                 sortServer
                 onSort={handleRemoteSort}
                 sortIcon={defState === 0 ? <FaSortAmountUp /> : <FaSortAmountUp className="text-[1px] opacity-0" />}
@@ -195,4 +204,4 @@ const BillsDatatable = () => {
     );
 }
 
-export default BillsDatatable;
+export default ReportsDatatable;

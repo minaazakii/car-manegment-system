@@ -73,14 +73,17 @@ export type partsData = {
     code?:number|string,
     price?:number,
     amount?: number|string,
-    totalPrice? : number
+    totalPrice? : number | string
 }
 export type labours = {
     id?:number,
     name?:string,
     price?:number,
 }
-export type BillFormData = {
+export interface personalInfo {
+    id?:number,
+    label?:string,
+    client?:string,
     name?:string,
     phoneNumber? : number | string
     brand?:string,
@@ -92,8 +95,46 @@ export type BillFormData = {
     color?:string,
     inDate? :string,
     outDate? : string,
+}
+export interface BillFormData extends personalInfo {
     parts? : partsData[]
     labours? : labours[],
-    totalValue? : number,
+    totalValue? : number | string,
     totaltaxbill? : number
+}
+
+// reports page
+type reportParts = {
+    id:number,
+    name:string,
+    status:string
+}[]
+export interface reportData extends personalInfo {
+    notes? : string,
+    reportParts? : reportParts[]
+}
+
+
+// spareparts
+
+export type sparepartTableData = {
+    id?: number,
+    name?: string,
+    code?:string,
+    qnt?:number | string,
+    price?:number | string,
+    date?:string,
+    notes?:string
+}
+
+// client
+
+export type clients = {
+    id?:number
+    name?:string
+    phone?:string
+    car?:string,
+    chassie?:string
+    motor?:string
+    color?:string
 }

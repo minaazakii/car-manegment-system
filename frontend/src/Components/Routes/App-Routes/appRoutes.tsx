@@ -8,6 +8,10 @@ import { Button, IconButton } from "@mui/material";
 import { IoMdLogOut } from "react-icons/io";
 import Bills from "../../../Pages/Bills/bills";
 import AddNewBill from "../../../Pages/Bills/NewBill/addBill";
+import Reports from "../../../Pages/Reports/reports";
+import AddReport from "../../../Pages/Reports/NewReport/addReport";
+import Spareparts from "../../../Pages/Spareparts/spareparts";
+import Clients from "../../../Pages/Clients/clients";
 
 const AppRoutes = () => {
     const [collapse, setcollapse] = useState<boolean>(false)
@@ -56,6 +60,10 @@ const AppRoutes = () => {
                         <Route path="/dashboard/home" element={<Home />} />
                         <Route path="/dashboard/bills" element={<Bills />} />
                         <Route path="/dashboard/bills/addbill" element={<AddNewBill />} />
+                        <Route path="/dashboard/reports" element={<Reports />} />
+                        <Route path="/dashboard/reports/addreport" element={<AddReport />} />
+                        <Route path="/dashboard/spareparts" element={<Spareparts />} />
+                        <Route path="/dashboard/clients" element={<Clients />} />
                     </Routes>
                 </section>
             </div>

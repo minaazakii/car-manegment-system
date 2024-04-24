@@ -8,15 +8,16 @@ function getPartName(index: number): keyof BillFormData {
 
 type PartsFormProps = {
     register : UseFormReturn['register'],
-    control: Control<BillFormData>,
-    errors : FieldErrors<BillFormData>,
-    parts : partsData[],
+    control?: Control<BillFormData>,
+    errors? : FieldErrors<BillFormData>,
+    parts? : partsData[],
     setValue: UseFormReturn['setValue'],
     watch:UseFormReturn['watch'],
-    add : ()=>void,
-    remove : (e:number)=>void
+    add? : ()=>void,
+    remove : (e:number)=>void,
+    isPrint? : boolean
 }
-const PartsInfo:React.FC<PartsFormProps> = ({register,errors,control,setValue,watch,parts,add,remove}) => {
+const PartsInfo:React.FC<PartsFormProps> = ({register,errors,control,setValue,watch,parts,add,remove,isPrint}) => {
     // console.log(parts);
 
     const top100Films = [
@@ -31,7 +32,7 @@ const PartsInfo:React.FC<PartsFormProps> = ({register,errors,control,setValue,wa
         <div className="personal-details p-2 ronded-sm shadow-md bg-white py-3 rounded-md">
             <section className="flex flex-wrap justify-between items-center gap-x-3 w-full gap-y-3 [&>div]:grow [&>div>input]:p-2 [&>div>input]:rounded-md [&>div>input]:bg-mainLightBlue [&>div>input]:focus-within:outline-0 [&>div>input]:transition-all [&>div>input]:duration-200 [&>div>label]:font-semibold">
                 <div className="add-field-btn-wrapper mb-2">
-                    <Button className="bg-mainBlue capitalize text-sm text-white" onClick={add}>أضف عنصر جديد</Button>
+                    {!isPrint ? <Button className="bg-mainBlue capitalize text-sm text-white" onClick={add}>أضف عنصر جديد</Button> : null }
                 </div>
 
                 {parts&&parts?.map( (item,index)=>(

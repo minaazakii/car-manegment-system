@@ -10,15 +10,16 @@ type LaboursFormProps = {
     setValue: UseFormReturn['setValue'],
     // watch:UseFormReturn['watch'],
     add : ()=>void,
-    remove : (e:number)=>void
+    remove : (e:number)=>void,
+    isPrint?:boolean
 }
 
-const LaboursInfo:React.FC<LaboursFormProps> = ({register,errors,control,setValue,labours,add,remove}) => {
+const LaboursInfo:React.FC<LaboursFormProps> = ({register,errors,control,setValue,labours,add,remove,isPrint}) => {
     return ( 
         <article className="bill-labours-wrapper p-2 ronded-sm shadow-md bg-white py-3 rounded-md">
             <section className="flex flex-wrap justify-between items-center gap-x-3 w-full gap-y-3 [&>div]:grow [&>div>input]:p-2 [&>div>input]:rounded-md [&>div>input]:bg-mainLightBlue [&>div>input]:focus-within:outline-0 [&>div>input]:transition-all [&>div>input]:duration-200 [&>div>label]:font-semibold">
                 <div className="add-field-btn-wrapper mb-2">
-                    <Button className="bg-mainBlue capitalize text-sm text-white" onClick={add}>أضف مصنعيه</Button>
+                    {!isPrint ?<Button className="bg-mainBlue capitalize text-sm text-white" onClick={add}>أضف مصنعيه</Button> : null }
                 </div>
 
                 {labours?.length !==0 ?

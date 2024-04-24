@@ -1,16 +1,16 @@
 import { useState } from "react";
 import DataTable, { TableColumn, TableStyles } from "react-data-table-component";
-import { BillFormData, billTableData } from "../../../Components/Types/types";
-import {useRemoteSort} from '../../../Components/Common/SortHook/sortHook'
-import { FaEye, FaSortAmountUp } from "react-icons/fa";
-import { getBills } from "../../../Components/Redux/Slices/Bills/bills";
-import { useAppDispatch } from "../../../Components/Redux/TsHooks";
+import {useRemoteSort} from '../../Components/Common/SortHook/sortHook'
+import { FaSortAmountUp } from "react-icons/fa";
+import { getBills } from "../../Components/Redux/Slices/Bills/bills";
+import { useAppDispatch } from "../../Components/Redux/TsHooks";
 import { useNavigate } from "react-router-dom";
-import { ListItemButton, Menu, MenuItem } from "@mui/material";
+import { Button, ListItemButton, Menu, MenuItem } from "@mui/material";
 import {BiDotsHorizontalRounded} from 'react-icons/bi'
-import { Link } from "react-router-dom";
+import { clients, sparepartTableData } from "../../Components/Types/types";
+import EditClientModal from "./editClient";
 
-const ActionCell = ({data}:{data:billTableData})=>{
+const ActionCell = ({data}:{data:clients})=>{
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const dispatch = useAppDispatch()
 
@@ -22,6 +22,10 @@ const ActionCell = ({data}:{data:billTableData})=>{
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const [openModal, setopenModal] = useState(false)
+    const handelModalOpen = ()=>setopenModal(true)
+    const handelModalClose = ()=>setopenModal(false)
     // console.log(data); 
 
     return (
@@ -44,16 +48,17 @@ const ActionCell = ({data}:{data:billTableData})=>{
                 PaperProps={{ style: { boxShadow: 'none',padding:0 } }}
                 className='shadow-md p-0'
             >
-                <div className='[&>li]:mb-2 [&>li>svg]:mr-2 [&>li>svg]:text-xl rounded-md overflow-hidden capitalize'>
-                    <MenuItem className='text-[#545151c2] hover:bg-[#442b7e42]'><Link to='viewbill' state={{data:data,type:'view'}} className='w-full flex items-center gap-x-3'> عرض الفاتورة <FaEye className='text-xl' /></Link></MenuItem>
-                </div>
+                <MenuItem className='text-[#545151c2] bg-mainLightBlue rounded-md hover:bg-mainLightBlue' onClick={handelModalOpen}>
+                    <Button>تعديل</Button>
+                </MenuItem>
             </Menu>
 
-            {/* <EditrestaurantModal open={openModal} close={handelClose} data={data} img={kfc} /> */}
+            <EditClientModal open={openModal} close={handelModalClose} data={data} />
         </div>
     );
 }
-const BillsDatatable = () => {
+
+const ClientsTable = () => {
     const navigate = useNavigate()
     const [page,setpage] = useState<number>(1)
     const [size,setsize] = useState<number>(10)
@@ -105,11 +110,11 @@ const BillsDatatable = () => {
         }
     };
 
-    const data:billTableData[] = [
-        {id:1,name:'جورج استيفن عبد المسيح',date:'20-10-2022',carType:'Audi',chassie:'LSXM255633',motor:'MOS85526',color:'red'},
+    const data:clients[] = [
+        {id:1,name:'جورج استيفن عبد المسيح',phone:"01125456",car:"bmw",chassie:'20102022',motor:"ggg22155",color:'red'},
     ]
 
-    const columns:TableColumn<billTableData>[] = [
+    const columns:TableColumn<clients>[] = [
         {
             name: 'ID',
             selector: (row) => row.id || '',
@@ -122,21 +127,21 @@ const BillsDatatable = () => {
             sortable: true,
         },
         {
-            name: 'Date',
-            selector: (row) => row?.date || '',
+            name: 'Phone',
+            selector: (row) => row?.phone || '',
+            sortable: true,
+        },
+        {
+            name: 'Car',
+            selector: (row) => row?.car || '',
             sortable: true,
             // minWidth : '180px'
         },
         {
-            name: 'Car Type',
-            selector: (row) => row?.carType || '',
+            name: 'Chassie',
+            selector: (row) => row?.chassie || '',
             sortable: false,
             // minWidth : '480px'
-        },
-        {
-            name: 'Chassie',
-            cell: (row) => <span data-tag="allowRowEvents" className="capitalize">{row?.chassie}</span> || '',
-            sortable: false,
         },
         {
             name: 'Motor',
@@ -149,7 +154,7 @@ const BillsDatatable = () => {
             sortable: false,
         },
         {
-            name: 'Details',
+            name: 'Actions',
             allowOverflow: true,
             button : true,
             cell: row=>(
@@ -183,7 +188,7 @@ const BillsDatatable = () => {
                 onChangeRowsPerPage={handleRowChange}
                 customStyles={customStyles}
                 highlightOnHover
-                onRowClicked={(data)=>navigate('viewbill',{state:{data:data,type:'view'}})}
+                // onRowClicked={(data)=>navigate('viewbill',{state:{data:data,type:'view'}})}
                 sortServer
                 onSort={handleRemoteSort}
                 sortIcon={defState === 0 ? <FaSortAmountUp /> : <FaSortAmountUp className="text-[1px] opacity-0" />}
@@ -195,4 +200,4 @@ const BillsDatatable = () => {
     );
 }
 
-export default BillsDatatable;
+export default ClientsTable;
