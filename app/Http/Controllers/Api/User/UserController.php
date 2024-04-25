@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Models\User;
+use App\Services\UserService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\User\StoreUserRequest;
@@ -11,22 +13,29 @@ use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
-    public function index()
+    private UserService $userService;
+
+    public function __construct(UserService $userService)
     {
-        $users = User::all();
+        $this->userService = $userService;
+    }
+
+    public function index(): JsonResponse
+    {
+        $users = $this->userService->getUsers();
 
         return response()->json(['users' => UserResource::collection($users)]);
     }
 
-    public function show($id)
+    public function show($id): JsonResponse
     {
-        $user = User::findOrFail($id);
+        $user = $this->userService->getSingleUser($id);
         return response()->json(['user' => new UserResource($user)]);
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): JsonResponse
     {
-        $user = User::create($request->validated());
+        $user = $this->userService->createUser($request->validated());
         return response()->json(
             [
                 'message' => 'User Created Successfully',
@@ -35,10 +44,9 @@ class UserController extends Controller
         );
     }
 
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request, $id): JsonResponse
     {
-        $user = User::findOrFail($id);
-        $user->update($request->validated());
+        $user = $this->userService->updateUser($request->validated(), $id);
         return response()->json(
             [
                 'message' => 'User Updated Successfully',
@@ -47,9 +55,9 @@ class UserController extends Controller
         );
     }
 
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
-        User::findOrFail($id)->delete();
+        $this->userService->deleteUser($id);
         return response()->json(['message' => 'User Deleted Successfully']);
     }
 }
