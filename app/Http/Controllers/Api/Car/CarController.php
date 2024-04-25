@@ -3,30 +3,37 @@
 namespace App\Http\Controllers\Api\Car;
 
 use App\Models\Car;
-use Illuminate\Http\Request;
+use App\Services\CarService;
 use App\Http\Resources\CarResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Car\StoreCarRequest;
 use App\Http\Requests\Api\Car\UpdateCarRequest;
+use Illuminate\Http\JsonResponse;
 
 class CarController extends Controller
 {
-    public function index()
+    private $carService;
+
+    public function __construct(CarService $carService)
     {
-        $cars = Car::all();
+        $this->carService = $carService;
+    }
+    public function index(): JsonResponse
+    {
+        $cars = $this->carService->getCars();
 
         return response()->json(['cars' => CarResource::collection($cars)]);
     }
 
-    public function show($id)
+    public function show($id):JsonResponse
     {
-        $car = Car::findOrFail($id);
+        $car = $this->carService->getSingleCar($id);
         return response()->json(['car' => new CarResource($car)]);
     }
 
-    public function store(StoreCarRequest $request)
+    public function store(StoreCarRequest $request): JsonResponse
     {
-        $car = Car::create($request->validated());
+        $car = $this->carService->createCar($request->validated());
         return response()->json(
             [
                 'message' => 'Car Created Successfully',
@@ -35,10 +42,9 @@ class CarController extends Controller
         );
     }
 
-    public function update(UpdateCarRequest $request, $id)
+    public function update(UpdateCarRequest $request, $id): JsonResponse
     {
-        $car = Car::findOrFail($id);
-        $car->update($request->validated());
+        $car = $this->carService->updateCar($request->validated(), $id);
         return response()->json(
             [
                 'message' => 'Car Updated Successfully',
@@ -47,9 +53,9 @@ class CarController extends Controller
         );
     }
 
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
-        Car::findOrFail($id)->delete();
+        $this->carService->deleteCar($id);
         return response()->json(['message' => 'Car Deleted Successfully']);
     }
 }
