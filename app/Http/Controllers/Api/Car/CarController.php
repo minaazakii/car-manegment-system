@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\Car;
 
-use App\Models\Car;
 use App\Services\CarService;
 use App\Http\Resources\CarResource;
 use App\Http\Controllers\Controller;
@@ -18,6 +17,7 @@ class CarController extends Controller
     {
         $this->carService = $carService;
     }
+
     public function index(): JsonResponse
     {
         $cars = $this->carService->getCars();
@@ -25,7 +25,7 @@ class CarController extends Controller
         return response()->json(['cars' => CarResource::collection($cars)]);
     }
 
-    public function show($id):JsonResponse
+    public function show($id): JsonResponse
     {
         $car = $this->carService->getSingleCar($id);
         return response()->json(['car' => new CarResource($car)]);
