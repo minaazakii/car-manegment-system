@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\SparePart;
 
 use App\Models\SparePart;
+use App\Services\SparePartService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SparePartResource;
@@ -11,22 +13,29 @@ use App\Http\Requests\Api\SparePart\UpdateSparePartRequest;
 
 class SparePartController extends Controller
 {
-    public function index()
+    private SparePartService $sparePartService;
+
+    public function __construct(SparePartService $sparePartService)
     {
-        $spareParts = SparePart::all();
+        $this->sparePartService = $sparePartService;
+    }
+
+    public function index(): JsonResponse
+    {
+        $spareParts = $this->sparePartService->getSpareParts();
 
         return response()->json(['spareParts' => SparePartResource::collection($spareParts)]);
     }
 
-    public function show($id)
+    public function show($id): JsonResponse
     {
-        $sparePart = SparePart::findOrFail($id);
+        $sparePart = $this->sparePartService->getSingleSparePart($id);
         return response()->json(['sparePart' => new SparePartResource($sparePart)]);
     }
 
-    public function store(StoreSparePartRequest $request)
+    public function store(StoreSparePartRequest $request): JsonResponse
     {
-        $sparePart = SparePart::create($request->validated());
+        $sparePart = $this->sparePartService->createSparePart($request->validated());
         return response()->json(
             [
                 'message' => 'SparePart Created Successfully',
@@ -35,10 +44,9 @@ class SparePartController extends Controller
         );
     }
 
-    public function update(UpdateSparePartRequest $request, $id)
+    public function update(UpdateSparePartRequest $request, $id): JsonResponse
     {
-        $sparePart = SparePart::findOrFail($id);
-        $sparePart->update($request->validated());
+        $sparePart = $this->sparePartService->updateSparePart($request->validated(), $id);
         return response()->json(
             [
                 'message' => 'SparePart Updated Successfully',
@@ -47,9 +55,9 @@ class SparePartController extends Controller
         );
     }
 
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
-        SparePart::findOrFail($id)->delete();
+        $this->sparePartService->deleteSparePart($id);
         return response()->json(['message' => 'SparePart Deleted Successfully']);
     }
 }
