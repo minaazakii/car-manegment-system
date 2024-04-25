@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Car;
 
 use App\Models\CarType;
+use App\Services\CarTypeService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CarTypeResource;
@@ -11,22 +13,29 @@ use App\Http\Requests\Api\Car\UpdateCarTypeRequest;
 
 class CarTypeController extends Controller
 {
-    public function index()
+    private CarTypeService $carTypeService;
+
+    public function __construct(CarTypeService $carTypeService)
     {
-        $carTypes = CarType::all();
+        $this->carTypeService = $carTypeService;
+    }
+
+    public function index(): JsonResponse
+    {
+        $carTypes = $this->carTypeService->getCarTypes();
 
         return response()->json(['carTypes' => CarTypeResource::collection($carTypes)]);
     }
 
-    public function show($id)
+    public function show($id): JsonResponse
     {
-        $carType = CarType::findOrFail($id);
+        $carType = $this->carTypeService->getSingleCarType($id);
         return response()->json(['carType' => new CarTypeResource($carType)]);
     }
 
-    public function store(StoreCarTypeRequest $request)
+    public function store(StoreCarTypeRequest $request): JsonResponse
     {
-        $carType = CarType::create($request->validated());
+        $carType = $this->carTypeService->createCarType($request->validated());
         return response()->json(
             [
                 'message' => 'CarType Created Successfully',
@@ -35,10 +44,9 @@ class CarTypeController extends Controller
         );
     }
 
-    public function update(UpdateCarTypeRequest $request, $id)
+    public function update(UpdateCarTypeRequest $request, $id): JsonResponse
     {
-        $carType = CarType::findOrFail($id);
-        $carType->update($request->validated());
+        $carType = $this->carTypeService->updateCarType($request->validated(), $id);
         return response()->json(
             [
                 'message' => 'CarType Updated Successfully',
@@ -47,9 +55,9 @@ class CarTypeController extends Controller
         );
     }
 
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
-        CarType::findOrFail($id)->delete();
+        $this->carTypeService->deleteCarType($id);
         return response()->json(['message' => 'CarType Deleted Successfully']);
     }
 }
