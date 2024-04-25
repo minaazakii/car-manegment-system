@@ -17,6 +17,7 @@ class SparePartResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'type' => $this->type,
             'car_type' => new CarTypeResource($this->carType),
             'code' => $this->code,
             'price' => $this->price,

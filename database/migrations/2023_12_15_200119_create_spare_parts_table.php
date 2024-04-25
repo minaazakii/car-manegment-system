@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('spare_parts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('type',['spare_part','material'])->default('spare_part');
             $table->foreignId('car_type_id')->constrained()->cascadeOnDelete();
             $table->string('code');
             $table->double('price');

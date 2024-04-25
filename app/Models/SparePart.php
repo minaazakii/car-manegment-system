@@ -12,6 +12,8 @@ class SparePart extends Model
 
     protected $guarded = [];
 
+    CONST TYPE_SPARE_PART = 'spare_part';
+    CONST TYPE_MATERIAL = 'material';
     public function carType()
     {
         return $this->belongsTo(CarType::class);
