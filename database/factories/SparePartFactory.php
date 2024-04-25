@@ -19,7 +19,6 @@ class SparePartFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'car_type_id' => CarType::inRandomOrder()->first()->id,
             'type' => fake()->randomElement(['spare_part', 'material']),
             'code' => fake()->postcode(),
             'price' => fake()->numberBetween(1, 10000),

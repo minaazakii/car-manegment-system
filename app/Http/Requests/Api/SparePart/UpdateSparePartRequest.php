@@ -22,7 +22,6 @@ class UpdateSparePartRequest extends FormRequest
         return [
             'name' => 'required',
             'type' => 'required|in:material,spare_part',
-            'car_type_id' => 'required|exists:car_types,id,deleted_at,NULL',
             'code' => 'required',
             'price' => 'required|numeric',
             'notes' => 'nullable',

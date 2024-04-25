@@ -14,8 +14,5 @@ class SparePart extends Model
 
     CONST TYPE_SPARE_PART = 'spare_part';
     CONST TYPE_MATERIAL = 'material';
-    public function carType()
-    {
-        return $this->belongsTo(CarType::class);
-    }
+
 }
