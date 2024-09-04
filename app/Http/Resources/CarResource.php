@@ -18,14 +18,11 @@ class CarResource extends JsonResource
             'id' => $this->id,
             'make' => $this->make,
             'model' => $this->model,
-            'user' => new UserResource($this->user),
             'carType' => new CarTypeResource($this->carType),
             'plate_number' => $this->plate_number,
             'chase_number' => $this->chase_number,
             'color' => $this->color,
             'motor_number' => $this->motor_number,
-            'entry_date' => $this->entry_date,
-            'exit_date' => $this->exit_date,
         ];
     }
 }

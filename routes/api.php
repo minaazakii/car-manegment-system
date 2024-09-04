@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Api\Car\CarController;
-use App\Http\Controllers\Api\Car\CarTypeController;
-use App\Http\Controllers\Api\SparePart\SparePartController;
-use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Car\CarController;
+use App\Http\Controllers\Api\User\UserController;
+use App\Http\Controllers\Api\Car\CarTypeController;
+use App\Http\Controllers\Api\Client\ClientController;
+use App\Http\Controllers\Api\SparePart\SparePartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/users', UserController::class);
+
+Route::apiResource('/clients', ClientController::class);
 
 Route::apiResource('/car-types', CarTypeController::class);
 

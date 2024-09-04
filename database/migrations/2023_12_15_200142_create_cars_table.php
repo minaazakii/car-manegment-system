@@ -15,14 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('make');
             $table->string('model');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('client_id')->constrained()->cascadeOnDelete();
             $table->foreignId('car_type_id')->constrained()->cascadeOnDelete();
-            $table->string('plate_number');
-            $table->string('chase_number');
+            $table->string('plate_number')->nullable();
+            $table->string('chase_number')->nullable();
             $table->string('color')->nullable();
-            $table->string('motor_number');
-            $table->date('entry_date')->default(now());
-            $table->date('exit_date');
+            $table->string('motor_number')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

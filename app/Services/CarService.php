@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Car;
+use App\Models\Client;
 use Illuminate\Database\Eloquent\Collection;
 
 class CarService
@@ -14,8 +15,9 @@ class CarService
         return $cars;
     }
 
-    public function createCar($data): Car
+    public function createCar($data,Client $client): Car
     {
+        $data['client_id'] = $client->id;
         $car = Car::create($data);
         return $car;
     }

@@ -19,8 +19,5 @@ class User extends Authenticatable
         'phone'
     ];
 
-    public function car() : HasOne
-    {
-        return $this->hasOne(Car::class);
-    }
+
 }
