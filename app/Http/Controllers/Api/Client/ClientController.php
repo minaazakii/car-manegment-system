@@ -16,7 +16,7 @@ class ClientController extends Controller
 
     private CarService $carService;
 
-    public function __construct(ClientService $clientService,CarService $carService)
+    public function __construct(ClientService $clientService, CarService $carService)
     {
         $this->clientService = $clientService;
         $this->carService = $carService;
@@ -38,8 +38,8 @@ class ClientController extends Controller
     {
         $client = $this->clientService->createClient($request->validated());
 
-        foreach($request->cars as $car){
-            $this->carService->createCar($car,$client);
+        foreach ($request->cars as $car) {
+            $this->carService->createCar($car, $client);
         }
 
         return response()->json(
@@ -52,7 +52,12 @@ class ClientController extends Controller
 
     public function update(UpdateClientRequest $request, $id)
     {
-        $client = $this->clientService->updateClient($request->validated(), $id);
+        foreach ($request->validated('cars') as $car) {
+            $this->carService->updateCar($car, $car['id']);
+        }
+
+        $client = $this->clientService->updateClient($request->only(['name', 'phone']), $id);
+
         return response()->json(
             [
                 'message' => 'Client Updated Successfully',
@@ -66,5 +71,4 @@ class ClientController extends Controller
         $this->clientService->deleteClient($id);
         return response()->json(['message' => 'Client Deleted Successfully']);
     }
-    
 }
