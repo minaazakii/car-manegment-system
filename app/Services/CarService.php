@@ -15,10 +15,18 @@ class CarService
         return $cars;
     }
 
-    public function createCar($data,Client $client): Car
+    public function createCar($data, Client $client): Car
     {
-        $data['client_id'] = $client->id;
-        $car = Car::create($data);
+        $car = Car::create([
+            'client_id' => $client->id,
+            'make' => $data['make'],
+            'model' => $data['model'],
+            'car_type_id' => $data['car_type_id'],
+            'plate_number' => $data['plate_number'],
+            'chase_number' => $data['chase_number'],
+            'color' => $data['color'],
+            'motor_number' => $data['motor_number'],
+        ]);
         return $car;
     }
 
@@ -31,14 +39,20 @@ class CarService
     public function updateCar($data, $id): Car
     {
         $car = Car::findOrFail($id);
-        $car->update($data);
+        $car->update([
+            'make' => $data['make'],
+            'model' => $data['model'],
+            'car_type_id' => $data['car_type_id'],
+            'plate_number' => $data['plate_number'],
+            'chase_number' => $data['chase_number'],
+            'color' => $data['color'],
+            'motor_number' => $data['motor_number'],
+        ]);
         return $car;
     }
 
     public function deleteCar($id): void
     {
         Car::findOrFail($id)->delete();
-
     }
-
 }
