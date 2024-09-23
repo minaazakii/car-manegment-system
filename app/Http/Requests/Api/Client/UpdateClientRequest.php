@@ -24,7 +24,15 @@ class UpdateClientRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'phone' => 'required|numeric|unique:clients,phone,' . $this->client
+            'phone' => 'required|numeric|unique:clients,phone,' . $this->client,
+            'cars' => 'array|required',
+            'cars.*.make' => 'required',
+            'cars.*.model' => 'required',
+            'cars.*.car_type_id' => 'required|numeric|exists:car_types,id',
+            'cars.*.plate_number' => 'nullable',
+            'cars.*.chase_number' => 'nullable',
+            'cars.*.color' => 'nullable',
+            'cars.*.motor_number' => 'nullable',
         ];
     }
 }
