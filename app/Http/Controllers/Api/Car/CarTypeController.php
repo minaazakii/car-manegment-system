@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CarTypeResource;
 use App\Http\Requests\Api\Car\StoreCarTypeRequest;
 use App\Http\Requests\Api\Car\UpdateCarTypeRequest;
+use App\Http\Resources\CarTypeCollection;
 
 class CarTypeController extends Controller
 {
@@ -22,9 +23,16 @@ class CarTypeController extends Controller
 
     public function index(): JsonResponse
     {
-        $carTypes = $this->carTypeService->getCarTypes();
+        $paginated = (bool)request()->query('paginated', true);
 
-        return response()->json(['carTypes' => CarTypeResource::collection($carTypes)]);
+        $size = request()->query('size', 10);
+        $carTypes = $this->carTypeService->getCarTypes($paginated, $size);
+
+        return response()->json([
+            'carTypes' => $paginated
+                ? new CarTypeCollection($carTypes)
+                : CarTypeResource::collection($carTypes)
+        ]);
     }
 
     public function show($id): JsonResponse
