@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\SparePartResource;
 use App\Http\Requests\Api\SparePart\StoreSparePartRequest;
 use App\Http\Requests\Api\SparePart\UpdateSparePartRequest;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class SparePartController extends Controller
 {
@@ -20,11 +21,11 @@ class SparePartController extends Controller
         $this->sparePartService = $sparePartService;
     }
 
-    public function index(): JsonResponse
+    public function index(): ResourceCollection
     {
         $spareParts = $this->sparePartService->getSpareParts();
 
-        return response()->json(['spareParts' => SparePartResource::collection($spareParts)]);
+        return SparePartResource::collection($spareParts);
     }
 
     public function show($id): JsonResponse
