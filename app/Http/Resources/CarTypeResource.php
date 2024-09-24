@@ -12,6 +12,10 @@ class CarTypeResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+
+    public static $wrap = 'data';
+
+
     public function toArray(Request $request): array
     {
         return [

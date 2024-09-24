@@ -31,7 +31,7 @@ class CarTypeController extends Controller
         return response()->json([
             'carTypes' => $paginated
                 ? new CarTypeCollection($carTypes)
-                : CarTypeResource::collection($carTypes)
+                : ['data' => CarTypeResource::collection($carTypes)]
         ]);
     }
 
