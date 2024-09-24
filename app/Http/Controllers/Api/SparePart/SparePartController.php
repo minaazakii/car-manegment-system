@@ -23,7 +23,10 @@ class SparePartController extends Controller
 
     public function index(): ResourceCollection
     {
-        $spareParts = $this->sparePartService->getSpareParts();
+        $paginated = (bool)request()->query('paginated', true);
+        $size = request()->query('size', 10);
+
+        $spareParts = $this->sparePartService->getSpareParts($paginated, $size);
 
         return SparePartResource::collection($spareParts);
     }

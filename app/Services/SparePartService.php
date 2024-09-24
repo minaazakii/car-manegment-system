@@ -3,14 +3,22 @@
 namespace App\Services;
 
 use App\Models\SparePart;
+use App\Enums\SparePartType;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class SparePartService
 {
-    public function getSpareParts(): Collection
+    public function getSpareParts($paginated = true, $size = 10): Collection | LengthAwarePaginator
     {
-        $spareParts = SparePart::all();
-        return $spareParts;
+        $types = array_column(SparePartType::cases(), 'value');
+
+        $spareParts = SparePart::query()
+            ->when(in_array(request()->query('type'), $types), function ($query, $name) {
+                return $query->where('type', request()->query('type'));
+            });
+
+        return $paginated ? $spareParts->paginate($size) : $spareParts->get();
     }
 
     public function getSingleSparePart($id): SparePart
