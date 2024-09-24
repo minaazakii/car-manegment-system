@@ -25,8 +25,9 @@ class SparePartController extends Controller
     {
         $paginated = (bool)request()->query('paginated', true);
         $size = request()->query('size', 10);
+        $search = request()->query('searchValue', null);
 
-        $spareParts = $this->sparePartService->getSpareParts($paginated, $size);
+        $spareParts = $this->sparePartService->getSpareParts($paginated, $size, $search);
 
         return SparePartResource::collection($spareParts);
     }

@@ -8,10 +8,13 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class CarTypeService
 {
-    public function getCarTypes($paginated = true, $size = 10): Collection|LengthAwarePaginator
+    public function getCarTypes($paginated = true, $size = 10, $search = null): Collection|LengthAwarePaginator
     {
-        $carTypes = $paginated ? CarType::paginate($size) : CarType::get();
-        return $carTypes;
+        $query = CarType::query()->when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%$search%");
+        });
+
+        return  $paginated ? $query->paginate($size) : $query->get();
     }
 
     public function getSingleCarType($id): CarType

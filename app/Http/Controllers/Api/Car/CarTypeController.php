@@ -24,9 +24,10 @@ class CarTypeController extends Controller
     public function index(): JsonResponse
     {
         $paginated = (bool)request()->query('paginated', true);
-
         $size = request()->query('size', 10);
-        $carTypes = $this->carTypeService->getCarTypes($paginated, $size);
+        $search = request()->query('searchValue', null);
+     
+        $carTypes = $this->carTypeService->getCarTypes($paginated, $size,$search);
 
         return response()->json([
             'carTypes' => $paginated

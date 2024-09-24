@@ -28,8 +28,9 @@ class ClientController extends Controller
     {
         $paginated = (bool)request()->query('paginated', true);
         $size = request()->query('size', 10);
+        $search = request()->query('searchValue', null);
 
-        $clients = $this->clientService->getClients($paginated, $size);
+        $clients = $this->clientService->getClients($paginated, $size, $search);
         return  ClientResource::collection($clients);
     }
 

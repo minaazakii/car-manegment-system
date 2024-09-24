@@ -9,13 +9,18 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class SparePartService
 {
-    public function getSpareParts($paginated = true, $size = 10): Collection | LengthAwarePaginator
+    public function getSpareParts($paginated = true, $size = 10, $search = null): Collection | LengthAwarePaginator
     {
         $types = array_column(SparePartType::cases(), 'value');
 
         $spareParts = SparePart::query()
             ->when(in_array(request()->query('type'), $types), function ($query, $name) {
                 return $query->where('type', request()->query('type'));
+            })
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'like', "%$search%")
+                    ->orWhere('code', 'like', "%$search%")
+                    ->orWhere('price', 'like', "%$search%");
             });
 
         return $paginated ? $spareParts->paginate($size) : $spareParts->get();

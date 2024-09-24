@@ -8,9 +8,14 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClientService
 {
-    public function getClients($paginated = true, $size = 10): Collection | LengthAwarePaginator
+    public function getClients($paginated = true, $size = 10, $search = null): Collection | LengthAwarePaginator
     {
-        return $paginated ? Client::paginate($size) : Client::get();
+
+        $query = Client::query()->when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%$search%")
+                ->orWhere('phone', 'like', "%$search%");
+        });
+        return $paginated ? $query->paginate($size) : $query->get();
     }
 
     public function getSingleClient($id): Client
