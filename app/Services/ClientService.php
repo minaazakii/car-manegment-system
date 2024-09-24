@@ -4,13 +4,13 @@ namespace App\Services;
 
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClientService
 {
-    public function getClients(): Collection
+    public function getClients($paginated = true, $size = 10): Collection | LengthAwarePaginator
     {
-        $clients = Client::all();
-        return $clients;
+        return $paginated ? Client::paginate($size) : Client::get();
     }
 
     public function getSingleClient($id): Client

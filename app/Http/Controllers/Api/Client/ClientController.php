@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Api\Client;
 
+use App\Services\CarService;
+use Illuminate\Http\Request;
+use App\Services\ClientService;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ClientResource;
 use App\Http\Requests\Api\Client\StoreClientRequest;
 use App\Http\Requests\Api\Client\UpdateClientRequest;
-use App\Http\Resources\ClientResource;
-use App\Services\CarService;
-use App\Services\ClientService;
-use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ClientController extends Controller
 {
@@ -22,10 +24,13 @@ class ClientController extends Controller
         $this->carService = $carService;
     }
 
-    public function index()
+    public function index(): ResourceCollection
     {
-        $clients = $this->clientService->getClients();
-        return response()->json(['clients' => ClientResource::collection($clients)]);
+        $paginated = (bool)request()->query('paginated', true);
+        $size = request()->query('size', 10);
+
+        $clients = $this->clientService->getClients($paginated, $size);
+        return  ClientResource::collection($clients);
     }
 
     public function show($id)
