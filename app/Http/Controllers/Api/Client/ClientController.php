@@ -52,11 +52,32 @@ class ClientController extends Controller
 
     public function update(UpdateClientRequest $request, $id)
     {
+        $client = $this->clientService->getSingleClient($id);
+        $clientCarsIds = $client->cars->pluck('id')->toArray();
+        $carsToDelete = null;
+
         foreach ($request->validated('cars') as $car) {
+
+            //Create car if it's not in the user Cars Ids
+            if (!isset($car['id'])) {
+                $this->carService->createCar($car, $client);
+                continue;
+            }
+
+            //Update car if it's in the user Cars Ids
             $this->carService->updateCar($car, $car['id']);
+            $carsToDelete = array_diff($clientCarsIds, [$car['id']]);
         }
 
-        $client = $this->clientService->updateClient($request->only(['name', 'phone']), $id);
+        //Delete cars that are not in the request
+        if ($carsToDelete) {
+            foreach ($carsToDelete as $carId) {
+                $this->carService->deleteCar($carId);
+            }
+        }
+
+        $client->update($request->only(['name', 'phone']));
+        $client = $this->clientService->getSingleClient($id);
 
         return response()->json(
             [
