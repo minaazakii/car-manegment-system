@@ -8,6 +8,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class CarTypeService
 {
+    public function __construct(private BrandService $brandService) {}
+
     public function getCarTypes($paginated = true, $size = 10, $search = null): Collection|LengthAwarePaginator
     {
         $query = CarType::query()->when($search, function ($query, $search) {
@@ -25,19 +27,45 @@ class CarTypeService
 
     public function createCarType($data): CarType
     {
-        $carType = CarType::create($data);
+        $carType = CarType::create(['name' => $data['name']]);
         return $carType;
     }
 
     public function updateCarType($data, $id): CarType
     {
         $carType = CarType::findOrFail($id);
-        $carType->update($data);
+        $carType->update(['name' => $data['name']]);
         return $carType;
     }
 
     public function deleteCarType($id): void
     {
         CarType::findOrFail($id)->delete();
+    }
+
+    public function updateCarTypeBrands($carTypeId,  array $brands): CarType
+    {
+        $carType = $this->getSingleCarType($carTypeId);
+        $carTypeBrandsIds = $carType->brands->pluck('id')->toArray();
+        $brandsToDelete = $carTypeBrandsIds;
+        foreach ($brands as $brand) {
+
+            if (!isset($brand['id'])) {
+                $carType->brands()->create($brand);
+                continue;
+            }
+
+            $this->brandService->updateBrand($brand, $brand['id']);
+            $brandsToDelete = array_diff($brandsToDelete, [$brand['id']]);
+        }
+
+        //Delete cars that are not in the request
+        if ($brandsToDelete) {
+            foreach ($brandsToDelete as $brandId) {
+                $this->brandService->deleteBrand($brandId);
+            }
+        }
+
+        return $this->getSingleCarType($carTypeId);
     }
 }

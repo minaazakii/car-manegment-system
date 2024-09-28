@@ -60,7 +60,7 @@ class ClientController extends Controller
     {
         $client = $this->clientService->getSingleClient($id);
         $clientCarsIds = $client->cars->pluck('id')->toArray();
-        $carsToDelete = null;
+        $carsToDelete = $clientCarsIds;
 
         foreach ($request->validated('cars') as $car) {
 

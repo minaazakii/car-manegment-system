@@ -20,7 +20,8 @@ class CarTypeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'brands' => $this->when($request->route()->getName() == 'car-types.show', BrandResource::collection($this->brands))
         ];
     }
 }

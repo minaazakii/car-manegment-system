@@ -19,9 +19,9 @@ class CarService
     {
         $car = Car::create([
             'client_id' => $client->id,
-            'make' => $data['make'],
             'model' => $data['model'],
             'car_type_id' => $data['car_type_id'],
+            'brand_id' => $data['brand_id'],
             'plate_number' => $data['plate_number'],
             'chase_number' => $data['chase_number'],
             'color' => $data['color'],
@@ -40,9 +40,9 @@ class CarService
     {
         $car = Car::findOrFail($id);
         $car->update([
-            'make' => $data['make'],
             'model' => $data['model'],
             'car_type_id' => $data['car_type_id'],
+            'brand_id' => $data['brand_id'],
             'plate_number' => $data['plate_number'],
             'chase_number' => $data['chase_number'],
             'color' => $data['color'],

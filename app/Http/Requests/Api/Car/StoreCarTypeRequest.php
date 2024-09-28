@@ -20,7 +20,9 @@ class StoreCarTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:car_types,name'
+            'name' => 'required|unique:car_types,name',
+            'brands' => 'required|array',
+            'brands.*.name' => 'required',
         ];
     }
 }

@@ -27,6 +27,8 @@ Route::apiResource('/users', UserController::class);
 
 Route::apiResource('/clients', ClientController::class);
 
+
+Route::get('/car-types/{typeId}/brands', [CarTypeController::class, 'getCarTypeBrands']);
 Route::apiResource('/car-types', CarTypeController::class);
 
 Route::apiResource('/spare-parts', SparePartController::class);
