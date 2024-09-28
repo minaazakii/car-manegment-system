@@ -55,11 +55,14 @@ class CarTypeService
                 continue;
             }
 
+            //Update the brand if it's in the request
             $this->brandService->updateBrand($brand, $brand['id']);
+
+            //Remove the brand from the brandsToDelete array if it's in the request
             $brandsToDelete = array_diff($brandsToDelete, [$brand['id']]);
         }
 
-        //Delete cars that are not in the request
+        //Delete brands that are not in the request
         if ($brandsToDelete) {
             foreach ($brandsToDelete as $brandId) {
                 $this->brandService->deleteBrand($brandId);
