@@ -20,7 +20,10 @@ class UpdateCarTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:car_types,name,' . $this->car_type
+            'name' => 'required|unique:car_types,name,' . $this->car_type,
+            'brands' => 'required|array',
+            'brands.*.id' => 'nullable|exists:brands,id',
+            'brands.*.name' => 'required',
         ];
     }
 }
