@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Car\CarController;
+use App\Http\Controllers\Api\Bill\BillController;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\Car\CarTypeController;
 use App\Http\Controllers\Api\Client\ClientController;
@@ -34,3 +35,5 @@ Route::apiResource('/car-types', CarTypeController::class);
 Route::apiResource('/spare-parts', SparePartController::class);
 
 Route::apiResource('/cars', CarController::class);
+
+Route::apiResource('/bills', BillController::class)->except('update');
